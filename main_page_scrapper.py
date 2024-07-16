@@ -1,14 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-import codecs
-# URL to scrape the list of items
-import re
 
 # importing files
 import Convertors_to_number as convertor
 import second_sepcial_each_manga as Extractor_specialPage
 import extractor_chaptor
+import appending_data_file as append_data
 
 # page scraping
 
@@ -66,8 +64,9 @@ def page_scrap(list_url,headers):
                 # Fetch chapter data-src values
                 chapter_data_src = extractor_chaptor.fetch_data_src_values(href,headers=headers ) if href else {}
                 
+                file_path = "data.json"
                 # Append the extracted data to the list
-                data.append({
+                append_data.append_to_json_file(file_path, {
                     'href': href,
                     'title': title,
                     'cover_img': img_src,
@@ -87,22 +86,10 @@ def page_scrap(list_url,headers):
                 error_link[title]=href
                 print(f"Error processing item: {e}")
 
-        
-        # Print the extracted data in JSON format
-        # print(json.dumps(data, indent=4)) //to print json data
-        file_path = "data.json"
-
-        # Open the file in write mode
-        with open(file_path, 'w') as json_file:
-            # Write the dictionary data into the file
-            json.dump(data, json_file, indent=4)
-        
+       
         file_path = "dataError.json"
-
-        # Open the file in write mode
-        with open(file_path, 'w') as json_file:
-            # Write the dictionary data into the file
-            json.dump(error_link, json_file, indent=4)
+        append_data.append_to_json_file(file_path,error_link)
+        
 
     else:
         print(f"Failed to retrieve the list page. Status code: {response.status_code}")

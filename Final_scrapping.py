@@ -14,6 +14,8 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
 
+
+
 # conver views into number
 def convert_suffix_to_number(suffix_string):
     suffix_string = suffix_string.lower()
@@ -124,7 +126,6 @@ def fetch_data_src_values(base_url):
             break
 
     return all_data_src_values
-
 
 
 

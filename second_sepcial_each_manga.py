@@ -1,14 +1,12 @@
 import Convertors_to_number as convert
 import requests
 from bs4 import BeautifulSoup
+import re
 
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-}
 
 # Function to extract details from each item's page
-def extract_details(url):
+def extract_details(url, headers):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html5lib')

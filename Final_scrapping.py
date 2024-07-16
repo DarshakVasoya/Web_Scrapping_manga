@@ -6,7 +6,7 @@ import codecs
 import re
 
 
-page_url = "https://manhuatop.org/manhua/page/2/?m_orderby=new-manga"
+page_url = "https://manhuatop.org/manhua/page/1/?m_orderby=new-manga"
 
 
 # Headers to include in the request to avoid 403 errors
@@ -67,9 +67,12 @@ def extract_details(url):
         except:
             summary=""
         
-
         # Extract status
-        status= soup.find('div', class_='post-status').find('div', class_='summary-content').find_next('div', class_='summary-content').text.strip()
+        
+        try:
+            status= soup.find('div', class_='post-status').find('div', class_='summary-content').find_next('div', class_='summary-content').text.strip()
+        except:
+            status="OnGoing"
 
         try:
             # Extract release year
@@ -77,6 +80,8 @@ def extract_details(url):
             release_year = release_div.find('a').text if release_div else None
         except:
             release_year=None
+
+
         return {
             'image_url': image_url,
             'genres': genres,
@@ -206,14 +211,14 @@ def page_scrap(list_url):
         file_path = "data.json"
 
         # Open the file in write mode
-        with open(file_path, 'a') as json_file:
+        with open(file_path, 'w') as json_file:
             # Write the dictionary data into the file
             json.dump(data, json_file, indent=4)
         
         file_path = "dataError.json"
 
         # Open the file in write mode
-        with open(file_path, 'a') as json_file:
+        with open(file_path, 'w') as json_file:
             # Write the dictionary data into the file
             json.dump(error_link, json_file, indent=4)
 
@@ -229,7 +234,4 @@ page_scrap(page_url)
 #     page_url = "https://manhuatop.org/manhua/page/"+str(i)+"/?m_orderby=new-manga"
 #     page_scrap(page_url)
 #     print(i)
-#     i=i+1
-
-
-hrllock to check gitgit 
+#     i=i+1c

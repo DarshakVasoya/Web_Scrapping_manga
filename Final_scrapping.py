@@ -219,7 +219,7 @@ def page_scrap(list_url):
 
     else:
         print(f"Failed to retrieve the list page. Status code: {response.status_code}")
-    
+
 
 list_url = 'https://example.com/list'
 
@@ -230,3 +230,6 @@ page_scrap(page_url)
 #     page_scrap(page_url)
 #     print(i)
 #     i=i+1
+
+
+hrllock to check gitgit 

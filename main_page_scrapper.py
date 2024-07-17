@@ -63,7 +63,7 @@ def page_scrap(list_url,headers):
                 
                 # Fetch chapter data-src values
                 chapter_data_src = extractor_chaptor.fetch_data_src_values(href,headers=headers ) if href else {}
-                
+    
                 file_path = "data.json"
                 # Append the extracted data to the list
                 append_data.append_to_json_file(file_path, {
@@ -83,13 +83,14 @@ def page_scrap(list_url,headers):
                     'chapters': chapter_data_src
                 })
             except Exception as e:
-                error_link[title]=href
+                # error_link[title]=href
+               
+                append_data.append_to_json_file_error("dataError.json",{title:href})
                 print(f"Error processing item: {e}")
 
-       
-        file_path = "dataError.json"
-        append_data.append_to_json_file(file_path,error_link)
+    #    notie that here dataError store dictionary , while data.json file store list. so , we can not use same function
         
+    
 
     else:
         print(f"Failed to retrieve the list page. Status code: {response.status_code}")

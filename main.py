@@ -20,29 +20,15 @@ import aiohttp
 # for scrapping whole website
 
 
-# i=1
-# while True:
-#     page_url = "https://manhuatop.org/manhua/page/"+str(i)+"/?m_orderby=new-manga"
-#     main_page_scrapper.page_scrap(page_url,headers=headers)
-#     print(i)
-#     ans=input("you want to continue answer : yes or no::")
-#     if ans=="no":
-#         break
-#     i=i+1
-
-
-
 i=1
 while True:
-    try:
-        page_url = "https://manhuatop.org/manhua/page/"+str(i)+"/?m_orderby=new-manga"
-        main_page_scrapper.page_scrap(page_url,headers=headers)
-        print(i)
-        
-        i=i+1
-    except:
-        appending_data_file.append_to_json_file(file_path="Page_error.json",new_item=page_url)
+    page_url = "https://manhuatop.org/manhua/page/"+str(i)+"/?m_orderby=new-manga"
+    main_page_scrapper.page_scrap(page_url,headers=headers)
+    print(i)
+    ans=input("you want to continue answer : yes or no::")
+    if ans=="no":
         break
+    i=i+1
 
 
 

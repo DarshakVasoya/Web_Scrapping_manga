@@ -62,7 +62,7 @@ def page_scrap(list_url,headers):
                 details =  Extractor_specialPage.extract_details(href,headers=headers) if href else {}
                 
                 # Fetch chapter data-src values
-                chapter_data_src = extractor_chaptor.fetch_data_src_values(href,headers=headers ) if href else {}
+                chapter_data_src = extractor_chaptor.fetch_data_src_values(href,headers=headers,total_chapter_list= details['Total_chapter_list'] ) if href else {}
     
                 file_path = "data.json"
                 # Append the extracted data to the list
@@ -80,6 +80,7 @@ def page_scrap(list_url,headers):
                     'alternative': details.get('alternative'),
                     'status': details.get('status'),
                     'Total views':details.get('Total views'),
+                    'Total chapters':details.get('Total_chapter_list'),
                     'chapters': chapter_data_src
                 })
             except Exception as e:

@@ -3,6 +3,14 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+def total_chaptors(soup):
+    lis = soup.find('ul', class_='main version-chap no-volumn').find_all('li')
+    total_chaptor_list=[]
+    for li in lis:
+        total_chaptor_list.append(li.find('a').text.strip())
+    return total_chaptor_list
+
+
 
 
 # Function to extract details from each item's page
@@ -10,7 +18,7 @@ def extract_details(url, headers):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html5lib')
-        
+        total_chapter_list=total_chaptors(soup)
         # Extract image URL
         image_div = soup.find('div', class_='tab-summary').find('div', class_='summary_image')
         image_url = image_div.find('img')['data-src'] if image_div else None
@@ -70,7 +78,8 @@ def extract_details(url, headers):
             'release_year': release_year,
             'alternative': alternative_text,
             'status':status,
-            'Total views':convert.convert_suffix_to_number(total_view)
+            'Total views':convert.convert_suffix_to_number(total_view),
+            'Total_chapter_list': total_chapter_list
         }
     else:
         print(f"Failed to retrieve the detailed page. Status code: {response.status_code}")

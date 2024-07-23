@@ -20,15 +20,20 @@ import aiohttp
 # for scrapping whole website
 
 
-i=1
-while True:
-    page_url = "https://manhuatop.org/manhua/page/"+str(i)+"/?m_orderby=new-manga"
-    main_page_scrapper.page_scrap(page_url,headers=headers)
-    print(i)
-    ans=input("you want to continue answer : yes or no::")
-    if ans=="no":
-        break
-    i=i+1
+async def main():
+    i=1
+    while True:
+        page_url = "https://manhuatop.org/manhua/page/"+str(i)+"/?m_orderby=new-manga"
+        await main_page_scrapper.page_scrap(page_url,headers=headers)
+        print(i)
+        ans=input("you want to continue answer : yes or no::")
+        if ans=="no":
+            break
+        i=i+1
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
 
 
 

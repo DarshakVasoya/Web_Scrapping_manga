@@ -21,7 +21,7 @@ import aiohttp
 
 
 async def main():
-    i=577
+    i=1
     while True:
         page_url = "https://manhuatop.org/manhua/page/"+str(i)+"/?m_orderby=new-manga"
         await main_page_scrapper.page_scrap(page_url,headers=headers)

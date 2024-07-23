@@ -7,7 +7,8 @@ import Convertors_to_number as convertor
 import second_sepcial_each_manga as Extractor_specialPage
 import extractor_chaptor
 import appending_data_file as append_data
-
+import sys
+import aiofiles
 # page scraping
 
 async def page_scrap(list_url,headers):
@@ -93,3 +94,8 @@ async def page_scrap(list_url,headers):
 
             else:
                 print(f"Failed to retrieve the list page. Status code: {response.status}")
+                
+                async with aiofiles.open("page_error.json", 'w') as file:
+                    await file.write(json.dumps({1:list_url}, indent=4))
+                sys.exit()
+

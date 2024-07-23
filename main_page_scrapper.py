@@ -63,27 +63,28 @@ async def page_scrap(list_url,headers):
             
                         file_path = "data.json"
                         # Append the extracted data to the list
-                        await append_data.append_to_json_file( {
-                            'href': href,
-                            'title': title,
-                            'cover_img': img_src,
-                            'rating': rating_text,
-                            'chapter': chapter_text,
-                            'date': date_text,
-                            'image_url': details.get('image_url'),
-                            'genres': details.get('genres'),
-                            'summary': details.get('summary'),
-                            'release_year': details.get('release_year'),
-                            'alternative': details.get('alternative'),
-                            'status': details.get('status'),
-                            'Total views':details.get('Total views'),
-                            'Total chapters':details.get('Total_chapter_list'),
-                            'chapters': chapter_data_src
-                        })
+                        if details.get('Total_chapter_list'):
+                            await append_data.append_to_mongodb( {
+                                'href': href,
+                                'title': title,
+                                'cover_img': img_src,
+                                'rating': rating_text,
+                                'chapter': chapter_text,
+                                'date': date_text,
+                                'image_url': details.get('image_url'),
+                                'genres': details.get('genres'),
+                                'summary': details.get('summary'),
+                                'release_year': details.get('release_year'),
+                                'alternative': details.get('alternative'),
+                                'status': details.get('status'),
+                                'Total views':details.get('Total views'),
+                                'Total chapters':details.get('Total_chapter_list'),
+                                'chapters': chapter_data_src
+                            })
                     except Exception as e:
                         # error_link[title]=href
                     
-                        await append_data.append_to_json_file_error({title:href})
+                        await append_data.append_to_mongodb_error({title:href})
                         print(f"Error processing item 8: {e}")
 
             #    notie that here dataError store dictionary , while data.json file store list. so , we can not use same function

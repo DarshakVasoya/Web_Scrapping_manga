@@ -4,7 +4,10 @@ from bs4 import BeautifulSoup
 import re
 import aiohttp
 def total_chaptors(soup):
-    lis = soup.find('ul', class_='main version-chap no-volumn').find_all('li')
+    try:
+        lis = soup.find('ul', class_='main version-chap no-volumn').find_all('li')
+    except:
+        lis=[]
     total_chaptor_list=[]
     for li in lis:
         total_chaptor_list.append(li.find('a').text.strip())
